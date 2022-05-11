@@ -160,6 +160,7 @@ public class GuiSoundProjector extends GuiContainer implements IContainerListene
                 y > (height - GUI_SIZE_Y) / 2 + 69 &&
                 y < (height - GUI_SIZE_Y) / 2 + 82) {
             tileSoundProjector.setSoundLoop(!tileSoundProjector.getSoundLoop());
+            updateSoundProjector();
         }
 
         if (!textSoundRange.isFocused())
@@ -201,6 +202,7 @@ public class GuiSoundProjector extends GuiContainer implements IContainerListene
     }
 
     private void updateSoundProjector() {
+        tileSoundProjector.sendUpdates();
         BlockPos pos = tileSoundProjector.getPos();
         SpNetworkHelper.updateSoundProjector(
                 pos.getX(), pos.getY(), pos.getZ(),

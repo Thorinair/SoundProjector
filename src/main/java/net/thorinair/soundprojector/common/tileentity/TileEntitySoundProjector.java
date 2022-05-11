@@ -1,5 +1,6 @@
 package net.thorinair.soundprojector.common.tileentity;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -7,8 +8,13 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.thorinair.soundprojector.common.block.BlockSoundProjector;
 import net.thorinair.soundprojector.common.util.SpSound;
+
+import javax.annotation.Nullable;
 
 public class TileEntitySoundProjector extends TileEntity implements ITickable {
 
@@ -99,10 +105,17 @@ public class TileEntitySoundProjector extends TileEntity implements ITickable {
      * Sends the data packet.
      */
     @Override
+    @Nullable
     public SPacketUpdateTileEntity getUpdatePacket() {
-        NBTTagCompound tag = new NBTTagCompound();
-        writeToNBT(tag);
-        return new SPacketUpdateTileEntity(getPos(), 1, tag);
+        return new SPacketUpdateTileEntity(this.pos, 3, this.getUpdateTag());
+        //NBTTagCompound tag = new NBTTagCompound();
+        //writeToNBT(tag);
+        //return new SPacketUpdateTileEntity(getPos(), 1, tag);
+    }
+
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        return writeToNBT(new NBTTagCompound());
     }
 
     /**
@@ -110,6 +123,7 @@ public class TileEntitySoundProjector extends TileEntity implements ITickable {
      */
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+        super.onDataPacket(net, packet);
         readFromNBT(packet.getNbtCompound());
         firstTickClient = true;
     }
@@ -211,10 +225,22 @@ public class TileEntitySoundProjector extends TileEntity implements ITickable {
         return this.powered;
     }
 
+    @Override
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+        return !(newState.getBlock() instanceof BlockSoundProjector);
+    }
+
     /**
      * Check if the TIle Entity can be used by the player.
      */
     public boolean isUsableByPlayer(EntityPlayer player) {
         return world.getTileEntity(pos) == this && player.getDistanceSq((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D) <= 64.0D;
+    }
+
+    public void sendUpdates() {
+        world.markBlockRangeForRenderUpdate(pos, pos);
+        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
+        world.scheduleBlockUpdate(pos,this.getBlockType(),0,0);
+        markDirty();
     }
 }

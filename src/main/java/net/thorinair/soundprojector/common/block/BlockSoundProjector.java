@@ -34,8 +34,8 @@ public class BlockSoundProjector extends SpBlockContainer
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
     }
 
-    @Nullable
     @Override
+    @Nullable
     public TileEntity createNewTileEntity(World world, int meta) {
         return new TileEntitySoundProjector();
     }
@@ -58,7 +58,25 @@ public class BlockSoundProjector extends SpBlockContainer
 
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos position, Block block, BlockPos fromPos) {
-        if(!world.isRemote && (state.getValue(POWERED) != world.isBlockPowered(position))) world.setBlockState(position, state.cycleProperty(POWERED), 2);
+        if(!world.isRemote && (state.getValue(POWERED) != world.isBlockIndirectlyGettingPowered(position) > 0)) {
+            world.setBlockState(position, state.cycleProperty(POWERED), 2);
+            TileEntitySoundProjector tileSoundProjector = (TileEntitySoundProjector) world.getTileEntity(position);
+            tileSoundProjector.setPowered(world.isBlockIndirectlyGettingPowered(position) > 0);
+            tileSoundProjector.sendUpdates();
+        }
+    }
+
+    /**
+     * Called when the block is broken.
+     */
+    @Override
+    public void breakBlock(World world, BlockPos position, IBlockState state) {
+        TileEntitySoundProjector tileSoundProjector = (TileEntitySoundProjector) world.getTileEntity(position);
+
+        if (tileSoundProjector != null) {
+            world.removeTileEntity(position);
+        }
+        super.breakBlock(world, position, state);
     }
 
     /**

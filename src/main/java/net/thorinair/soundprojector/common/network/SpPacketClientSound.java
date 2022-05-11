@@ -68,8 +68,9 @@ public class SpPacketClientSound implements IMessage, IMessageHandler<SpPacketCl
             tileSoundProjector.setSoundRange(message.soundRange);
             tileSoundProjector.setSoundDistance(message.soundDistance);
             tileSoundProjector.setSoundLoop(message.soundLoop);
-            IBlockState state = tileSoundProjector.getWorld().getBlockState(pos);
-            tileSoundProjector.getWorld().notifyBlockUpdate(pos, state, state, 0);
+            tileSoundProjector.sendUpdates();
+            //IBlockState state = tileSoundProjector.getWorld().getBlockState(pos);
+            //tileSoundProjector.getWorld().notifyBlockUpdate(pos, state, state, 0);
         }
         return null;
     }

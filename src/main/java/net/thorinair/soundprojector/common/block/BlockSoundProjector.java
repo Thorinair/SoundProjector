@@ -11,7 +11,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityCommandBlock;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -20,7 +19,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.thorinair.soundprojector.SoundProjector;
 import net.thorinair.soundprojector.common.init.SpCreativeTabs;
 import net.thorinair.soundprojector.common.tileentity.TileEntitySoundProjector;
-import net.thorinair.soundprojector.common.util.SpGui;
 
 import javax.annotation.Nullable;
 

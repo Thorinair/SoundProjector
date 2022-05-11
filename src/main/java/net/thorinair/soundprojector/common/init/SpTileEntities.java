@@ -3,7 +3,6 @@ package net.thorinair.soundprojector.common.init;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.thorinair.soundprojector.SoundProjector;
-import net.thorinair.soundprojector.common.block.BlockSoundProjector;
 import net.thorinair.soundprojector.common.tileentity.TileEntitySound;
 import net.thorinair.soundprojector.common.tileentity.TileEntitySoundProjector;
 

@@ -5,19 +5,14 @@ import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.thorinair.soundprojector.common.creativetab.SpCreativeTab;
 import net.thorinair.soundprojector.common.item.SpItem;
-import net.thorinair.soundprojector.common.item.SpItemBlock;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class SpItems {
     private static List<SpItem> items = new ArrayList<>();
-    //private static List<SpItemBlock> itemBlocks = new ArrayList<>();
 
     public static Item
 
@@ -34,52 +29,17 @@ public final class SpItems {
         for (SpItem item : items) {
             registry.registerAll(item);
         }
-        //for (SpItemBlock item : itemBlocks)
-        //    registry.registerAll(item);
     }
 
     public static void registerRenders(ModelRegistryEvent event) {
         for (SpItem item : items) {
             registerRender(item);
         }
-        //for (SpItemBlock item : itemBlocks)
-        //    registerRender(item);
     }
 
     private static void registerRender(Item item) {
         ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
     }
-
-    //@SideOnly(Side.CLIENT)
-    //public static void registerModels()
-    //{
-    //    for (SpItem item : items) {
-    //        ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
-    //        // Add a custom model override if the item provides one
-    //        //Optional<Function<IBakedModel, IBakedModel>> override = item.addModelOverride();
-    //        //if (override.isPresent())
-    //        //	HexClientEvents.addModelOverride(item.getRegistryName(), override.get());
-    //    }
-    //    for (SpItemBlock item : itemBlocks)
-    //    {
-    //        //Optional<HexStateMapper> mapper = ((SoundProjectorBlock) item.getBlock()).addStateMapper();
-    //        // Register a state mapper if the the item's block has one
-    //        //ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(mapper.isPresent() ? mapper.get().getPathForItem(item) : item.getRegistryName(), "inventory"));
-    //    }
-    //}
-
-    //@SideOnly(Side.CLIENT)
-    //public static void registerColors(ColorHandlerEvent.Item event)
-    //{
-    //    ItemColors registry = event.getItemColors();
-    //    for (HexItemBlock item : itemBlocks)
-    //    {
-    //        // Register a color handler if the item's block has one
-    //        Optional<IItemColor> color = ((HexBlock) item.getBlock()).addItemColor();
-    //        if(color.isPresent())
-    //            registry.registerItemColorHandler(color.get(), item);
-    //    }
-    //}
 
     /**
      * Add the given item for automatic registry
@@ -88,12 +48,4 @@ public final class SpItems {
         items.add(item);
         return item;
     }
-
-    ///**
-    // * Add the given item block for automatic registry
-    // */
-    //public static SpItemBlock add(SpItemBlock item) {
-    //    itemBlocks.add(item);
-    //    return item;
-    //}
 }

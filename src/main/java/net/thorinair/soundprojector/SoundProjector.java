@@ -1,21 +1,17 @@
 package net.thorinair.soundprojector;
 
-import net.minecraft.client.audio.Sound;
-import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.thorinair.soundprojector.common.init.SpBlocks;
 import net.thorinair.soundprojector.common.init.SpItems;
 import net.thorinair.soundprojector.common.init.SpTileEntities;
 import net.thorinair.soundprojector.common.network.SpChannelHandler;
 import net.thorinair.soundprojector.common.proxy.IProxy;
 import net.thorinair.soundprojector.common.util.SpGui;
-import org.apache.logging.log4j.Logger;
 
 @Mod(modid = SoundProjector.MODID, name = SoundProjector.NAME, version = SoundProjector.VERSION)
 public class SoundProjector

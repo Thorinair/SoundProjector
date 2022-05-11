@@ -5,8 +5,9 @@
         "model": "soundprojector:sound_projector",
         "textures":
         {
-            "down": "soundprojector:blocks/sound_projector/sound_projector_bottom",
             "up": "soundprojector:blocks/sound_projector/sound_projector_top",
+            "up_powered": "soundprojector:blocks/sound_projector/sound_projector_top_powered",
+            "down": "soundprojector:blocks/sound_projector/sound_projector_bottom",
             "side": "soundprojector:blocks/sound_projector/sound_projector_side"
         }
     },
@@ -20,6 +21,10 @@
             "south": { "x": -90},
             "west": { "x": -90, "y": 90},
             "east": { "x": -90, "y": -90}
+        },
+        "powered": {
+            "true": { "model": "soundprojector:sound_projector_powered" },
+            "false": { "model": "soundprojector:sound_projector" }
         },
         "inventory": [{ "model": "soundprojector:sound_projector" }]
     }

@@ -1,8 +1,10 @@
 package net.thorinair.soundprojector.common.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -17,10 +19,16 @@ import net.thorinair.soundprojector.common.init.SpCreativeTabs;
 public class BlockSoundProjector extends SpBlock
 {
     public static final PropertyDirection FACING = BlockDirectional.FACING;
+    public static final PropertyBool POWERED = PropertyBool.create("powered");
 
     public BlockSoundProjector() {
         super("sound_projector", SpCreativeTabs.soundprojector, Material.IRON);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
+    }
+
+    @Override
+    public void neighborChanged(IBlockState state, World world, BlockPos position, Block block, BlockPos fromPos) {
+        if(!world.isRemote && (state.getValue(POWERED) != world.isBlockPowered(position))) world.setBlockState(position, state.cycleProperty(POWERED), 2);
     }
 
     /**
@@ -38,7 +46,7 @@ public class BlockSoundProjector extends SpBlock
      */
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7));
+        return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7)).withProperty(POWERED, (meta & 8) != 0);
     }
 
     /**
@@ -46,7 +54,7 @@ public class BlockSoundProjector extends SpBlock
      */
     @Override
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getIndex();
+        return (state.getValue(FACING)).getIndex() | (state.getValue(POWERED) ? 8 : 0);
     }
 
     /**
@@ -55,7 +63,7 @@ public class BlockSoundProjector extends SpBlock
      */
     @Override
     public IBlockState withRotation(IBlockState state, Rotation rot) {
-        return state.withProperty(FACING, rot.rotate((EnumFacing)state.getValue(FACING)));
+        return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
     }
 
     /**
@@ -64,12 +72,12 @@ public class BlockSoundProjector extends SpBlock
      */
     @Override
     public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-        return state.withRotation(mirrorIn.toRotation((EnumFacing)state.getValue(FACING)));
+        return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
     }
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, new IProperty[] {FACING});
+        return new BlockStateContainer(this, new IProperty[] {FACING, POWERED});
     }
 
     /**
@@ -77,7 +85,7 @@ public class BlockSoundProjector extends SpBlock
      * IBlockstate
      */
     @Override
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
+    public IBlockState getStateForPlacement(World world, BlockPos position, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(position, placer)).withProperty(POWERED, world.isBlockPowered(position));
     }
 }

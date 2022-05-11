@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.thorinair.soundprojector.common.init.SpBlocks;
+import net.thorinair.soundprojector.common.init.SpItems;
 import net.thorinair.soundprojector.common.proxy.IProxy;
 import org.apache.logging.log4j.Logger;
 
@@ -22,13 +23,19 @@ public class SoundProjector
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        System.out.println(SoundProjector.MODID + ":preInit");
         proxy.preInitialization();
         SpBlocks.init();
+        SpItems.init();
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        // some example code
-        //logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        System.out.println(SoundProjector.MODID + ":init");
+    }
+
+    @EventHandler
+    public void postInit(FMLInitializationEvent event) {
+        System.out.println(SoundProjector.MODID + ":postInit");
     }
 }

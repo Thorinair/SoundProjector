@@ -100,7 +100,7 @@ public final class SpBlocks {
      */
     public static SpBlock add(SpBlock block) {
         blocks.add(block);
-        SpItems.add(new SpItemBlock(block));
+        //SpItems.add(new SpItemBlock(block));
         return block;
     }
 }

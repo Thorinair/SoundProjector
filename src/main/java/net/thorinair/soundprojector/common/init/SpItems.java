@@ -2,11 +2,13 @@ package net.thorinair.soundprojector.common.init;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.thorinair.soundprojector.common.creativetab.SpCreativeTab;
 import net.thorinair.soundprojector.common.item.SpItem;
 import net.thorinair.soundprojector.common.item.SpItemBlock;
 
@@ -15,28 +17,37 @@ import java.util.List;
 
 public final class SpItems {
     private static List<SpItem> items = new ArrayList<>();
-    private static List<SpItemBlock> itemBlocks = new ArrayList<>();
+    //private static List<SpItemBlock> itemBlocks = new ArrayList<>();
 
-    //public static final Item
-//
-    //hexorium_crystal_red = add(new ItemHexoriumCrystal(EHexColor.RED)),
-    //hexorium_crystal_green = add(new ItemHexoriumCrystal(EHexColor.GREEN)),
-    //hexorium_crystal_blue = add(new ItemHexoriumCrystal(EHexColor.BLUE)),
-    //hexorium_crystal_white = add(new ItemHexoriumCrystal(EHexColor.WHITE)),
-    //hexorium_crystal_black = add(new ItemHexoriumCrystal(EHexColor.BLACK)),
-//
-    //hexorium_reinforcer = add(new ItemHexoriumReinforcer()),
-//
-    //hexorium_glass_package = add(new HexItem("hexorium_glass_package", HexCreativeTabs.components));
+    public static Item
+
+    directional_loudspeaker;
+
+    public static void init() {
+        directional_loudspeaker = add(new SpItem("directional_loudspeaker", SpCreativeTabs.soundprojector));
+    }
 
     private SpItems() {}
 
-    public static void register(RegistryEvent.Register<Item> event) {
+    public static void registerItems(RegistryEvent.Register<Item> event) {
         IForgeRegistry registry = event.getRegistry();
-        for (SpItem item : items)
-            registry.register(item);
-        for (SpItemBlock item : itemBlocks)
-            registry.register(item);
+        for (SpItem item : items) {
+            registry.registerAll(item);
+        }
+        //for (SpItemBlock item : itemBlocks)
+        //    registry.registerAll(item);
+    }
+
+    public static void registerRenders(ModelRegistryEvent event) {
+        for (SpItem item : items) {
+            registerRender(item);
+        }
+        //for (SpItemBlock item : itemBlocks)
+        //    registerRender(item);
+    }
+
+    private static void registerRender(Item item) {
+        ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
     }
 
     //@SideOnly(Side.CLIENT)
@@ -78,11 +89,11 @@ public final class SpItems {
         return item;
     }
 
-    /**
-     * Add the given item block for automatic registry
-     */
-    public static SpItemBlock add(SpItemBlock item) {
-        itemBlocks.add(item);
-        return item;
-    }
+    ///**
+    // * Add the given item block for automatic registry
+    // */
+    //public static SpItemBlock add(SpItemBlock item) {
+    //    itemBlocks.add(item);
+    //    return item;
+    //}
 }

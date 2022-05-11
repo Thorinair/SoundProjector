@@ -10,6 +10,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.thorinair.soundprojector.SoundProjector;
 import net.thorinair.soundprojector.common.init.SpBlocks;
+import net.thorinair.soundprojector.common.init.SpItems;
 
 @Mod.EventBusSubscriber(modid = SoundProjector.MODID)
 public final class SpEvents
@@ -30,11 +31,11 @@ public final class SpEvents
     @SideOnly(Side.CLIENT)
     public static void registerRenders(ModelRegistryEvent event) {
         SpBlocks.registerRenders(event);
+        SpItems.registerRenders(event);
     }
 
-    //@SubscribeEvent
-    //public static void registerItems(RegistryEvent.Register<Item> event) {
-    //    //SoundProjectorItems.register(event);
-    //    //SoundProjectorOreDict.register();
-    //}
+    @SubscribeEvent
+    public static void registerItems(RegistryEvent.Register<Item> event) {
+        SpItems.registerItems(event);
+    }
 }

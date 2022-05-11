@@ -9,14 +9,22 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityCommandBlock;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.thorinair.soundprojector.SoundProjector;
 import net.thorinair.soundprojector.common.init.SpCreativeTabs;
+import net.thorinair.soundprojector.common.tileentity.TileEntitySoundProjector;
+import net.thorinair.soundprojector.common.util.SpGui;
 
-public class BlockSoundProjector extends SpBlock
+import javax.annotation.Nullable;
+
+public class BlockSoundProjector extends SpBlockContainer
 {
     public static final PropertyDirection FACING = BlockDirectional.FACING;
     public static final PropertyBool POWERED = PropertyBool.create("powered");
@@ -24,6 +32,28 @@ public class BlockSoundProjector extends SpBlock
     public BlockSoundProjector() {
         super("sound_projector", SpCreativeTabs.soundprojector, Material.IRON);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World world, int meta) {
+        return new TileEntitySoundProjector();
+    }
+
+    /**
+     * Called when the block is right clicked by a player.
+     */
+    @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        TileEntity tileentity = world.getTileEntity(pos);
+
+        if (tileentity instanceof TileEntitySoundProjector) {
+            player.openGui(SoundProjector.instance, SoundProjector.GUI_ENUM.SOUND_PROJECTOR.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     @Override

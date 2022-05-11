@@ -25,7 +25,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public final class SpBlocks {
-    private static List<SpBlock> blocks = new ArrayList<>();
+    private static final List<Block> blocks = new ArrayList<>();
 
     public static Block sound_projector;
 
@@ -37,7 +37,7 @@ public final class SpBlocks {
 
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         IForgeRegistry registry = event.getRegistry();
-        for(SpBlock block : blocks) {
+        for(Block block : blocks) {
 			registry.registerAll(block);
 			//System.out.println("Information!");
 		}
@@ -45,13 +45,13 @@ public final class SpBlocks {
 
     public static void registerItemBlocks(RegistryEvent.Register<Item> event) {
         IForgeRegistry registry = event.getRegistry();
-        for(SpBlock block : blocks) {
+        for(Block block : blocks) {
             registry.registerAll(new ItemBlock(block).setRegistryName(block.getRegistryName()));
         }
     }
 
     public static void registerRenders(ModelRegistryEvent event) {
-        for(SpBlock block : blocks) {
+        for(Block block : blocks) {
             registerRender(Item.getItemFromBlock(block));
         }
     }
@@ -98,7 +98,7 @@ public final class SpBlocks {
     /**
      * Add the given block for automatic registry
      */
-    public static SpBlock add(SpBlock block) {
+    public static Block add(Block block) {
         blocks.add(block);
         //SpItems.add(new SpItemBlock(block));
         return block;

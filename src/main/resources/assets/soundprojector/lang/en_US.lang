@@ -3,3 +3,9 @@ itemGroup.soundprojector.soundprojector=SoundProjector
 tile.soundprojector.sound_projector.name=Sound Projector
 
 item.soundprojector.directional_loudspeaker.name=Directional Loudspeaker
+
+soundprojector.container.sound_projector=Sound Projector
+soundprojector.container.sound_projector.label_sound_name=Sound Name
+soundprojector.container.sound_projector.label_sound_range=Range
+soundprojector.container.sound_projector.label_sound_distance=Distance
+soundprojector.container.sound_projector.label_sound_loop=Loop

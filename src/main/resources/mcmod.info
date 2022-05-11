@@ -1,0 +1,16 @@
+[
+{
+  "modid": "soundprojector",
+  "name": "SoundProjector",
+  "description": "Adds a Sound Projector block for all your custom sound needs.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Thorinair"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

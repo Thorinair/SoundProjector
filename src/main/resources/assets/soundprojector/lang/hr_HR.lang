@@ -6,6 +6,6 @@ item.soundprojector.directional_loudspeaker.name=Usmjereni Zvučnik
 
 soundprojector.container.sound_projector=Projektor Zvuka
 soundprojector.container.sound_projector.label_sound_name=Ime Zvuka
-soundprojector.container.sound_projector.label_sound_range=Doseg
-soundprojector.container.sound_projector.label_sound_distance=Udaljenost
+soundprojector.container.sound_projector.label_sound_radius=Polumjer
+soundprojector.container.sound_projector.label_sound_offset=Pomak
 soundprojector.container.sound_projector.label_sound_loop=Ponavljaj

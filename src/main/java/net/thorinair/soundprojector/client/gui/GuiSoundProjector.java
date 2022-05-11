@@ -27,15 +27,15 @@ public class GuiSoundProjector extends GuiContainer implements IContainerListene
 
     // GUI Strings
     private static final String GUI_STRING_SOUND_NAME = "soundprojector.container.sound_projector.label_sound_name";
-    private static final String GUI_STRING_SOUND_RANGE = "soundprojector.container.sound_projector.label_sound_range";
-    private static final String GUI_STRING_SOUND_DISTANCE = "soundprojector.container.sound_projector.label_sound_distance";
+    private static final String GUI_STRING_SOUND_RADIUS = "soundprojector.container.sound_projector.label_sound_radius";
+    private static final String GUI_STRING_SOUND_OFFSET = "soundprojector.container.sound_projector.label_sound_offset";
     private static final String GUI_STRING_SOUND_LOOP = "soundprojector.container.sound_projector.label_sound_loop";
 
     private TileEntitySoundProjector tileSoundProjector;
 
     private GuiTextField textSoundName;
-    private GuiTextField textSoundRange;
-    private GuiTextField textSoundDistance;
+    private GuiTextField textSoundRadius;
+    private GuiTextField textSoundOffset;
 
     private static final ResourceLocation SOUND_PROJECTOR_RESOURCE = new ResourceLocation(SoundProjector.MODID,"textures/gui/sound_projector.png");
 
@@ -54,15 +54,15 @@ public class GuiSoundProjector extends GuiContainer implements IContainerListene
         textSoundName.setTextColor(0xFFFFFF);
         textSoundName.setText(tileSoundProjector.getSoundName());
 
-        textSoundRange = new GuiTextField(1, this.fontRenderer, width / 2 - GUI_SIZE_X / 2 + 70, height / 2 - GUI_SIZE_Y / 2 + 38, 27, 12);
-        textSoundRange.setMaxStringLength(3);
-        textSoundRange.setTextColor(0xFFFFFF);
-        textSoundRange.setText(Integer.toString(tileSoundProjector.getSoundRange()));
+        textSoundRadius = new GuiTextField(1, this.fontRenderer, width / 2 - GUI_SIZE_X / 2 + 70, height / 2 - GUI_SIZE_Y / 2 + 38, 27, 12);
+        textSoundRadius.setMaxStringLength(3);
+        textSoundRadius.setTextColor(0xFFFFFF);
+        textSoundRadius.setText(Integer.toString(tileSoundProjector.getSoundRadius()));
 
-        textSoundDistance = new GuiTextField(2, this.fontRenderer, width / 2 - GUI_SIZE_X / 2 + 70, height / 2 - GUI_SIZE_Y / 2 + 54, 27, 12);
-        textSoundDistance.setMaxStringLength(3);
-        textSoundDistance.setTextColor(0xFFFFFF);
-        textSoundDistance.setText(Integer.toString(tileSoundProjector.getSoundDistance()));
+        textSoundOffset = new GuiTextField(2, this.fontRenderer, width / 2 - GUI_SIZE_X / 2 + 70, height / 2 - GUI_SIZE_Y / 2 + 54, 27, 12);
+        textSoundOffset.setMaxStringLength(3);
+        textSoundOffset.setTextColor(0xFFFFFF);
+        textSoundOffset.setText(Integer.toString(tileSoundProjector.getSoundOffset()));
 
         textSoundName.setFocused(true);
     }
@@ -77,11 +77,11 @@ public class GuiSoundProjector extends GuiContainer implements IContainerListene
         String labelSoundName = I18n.format(GUI_STRING_SOUND_NAME);
         fontRenderer.drawString(labelSoundName, GUI_SIZE_X / 2 - 80, 62, 0x404040);
 
-        String labelSoundRange = I18n.format(GUI_STRING_SOUND_RANGE);
-        fontRenderer.drawString(labelSoundRange, GUI_SIZE_X / 2 - 80, 78, 0x404040);
+        String labelSoundRadius = I18n.format(GUI_STRING_SOUND_RADIUS);
+        fontRenderer.drawString(labelSoundRadius, GUI_SIZE_X / 2 - 80, 78, 0x404040);
 
-        String labelSoundDistance = I18n.format(GUI_STRING_SOUND_DISTANCE);
-        fontRenderer.drawString(labelSoundDistance, GUI_SIZE_X / 2 - 80, 94, 0x404040);
+        String labelSoundOffset = I18n.format(GUI_STRING_SOUND_OFFSET);
+        fontRenderer.drawString(labelSoundOffset, GUI_SIZE_X / 2 - 80, 94, 0x404040);
 
         String labelSoundLoop = I18n.format(GUI_STRING_SOUND_LOOP);
         fontRenderer.drawString(labelSoundLoop, GUI_SIZE_X / 2 - 80, 110, 0x404040);
@@ -107,8 +107,8 @@ public class GuiSoundProjector extends GuiContainer implements IContainerListene
     @Override
     protected void keyTyped(char c, int key) throws IOException {
         if (key == 1) {
-            processTextSoundRange();
-            processTextSoundDistance();
+            processTextSoundRadius();
+            processTextSoundOffset();
             super.keyTyped(c, key);
         }
 
@@ -117,13 +117,13 @@ public class GuiSoundProjector extends GuiContainer implements IContainerListene
             tileSoundProjector.setSoundName(textSoundName.getText());
             updateSoundProjector();
         }
-        else if (textSoundRange.isFocused()) {
+        else if (textSoundRadius.isFocused()) {
             if (!Character.isLetter(c))
-                textSoundRange.textboxKeyTyped(c, key);
+                textSoundRadius.textboxKeyTyped(c, key);
         }
-        else if (textSoundDistance.isFocused()) {
+        else if (textSoundOffset.isFocused()) {
             if (!Character.isLetter(c))
-                textSoundDistance.textboxKeyTyped(c, key);
+                textSoundOffset.textboxKeyTyped(c, key);
         }
         else {
             super.keyTyped(c, key);
@@ -134,8 +134,8 @@ public class GuiSoundProjector extends GuiContainer implements IContainerListene
     public void updateScreen() {
         super.updateScreen();
         textSoundName.updateCursorCounter();
-        textSoundRange.updateCursorCounter();
-        textSoundDistance.updateCursorCounter();
+        textSoundRadius.updateCursorCounter();
+        textSoundOffset.updateCursorCounter();
     }
 
     @Override
@@ -143,8 +143,8 @@ public class GuiSoundProjector extends GuiContainer implements IContainerListene
         this.drawDefaultBackground();
         super.drawScreen(par1, par2, par3);
         textSoundName.drawTextBox();
-        textSoundRange.drawTextBox();
-        textSoundDistance.drawTextBox();
+        textSoundRadius.drawTextBox();
+        textSoundOffset.drawTextBox();
     }
 
     @Override
@@ -152,8 +152,8 @@ public class GuiSoundProjector extends GuiContainer implements IContainerListene
         super.mouseClicked(x, y, btn);
 
         textSoundName.mouseClicked(x, y, btn);
-        textSoundRange.mouseClicked(x, y, btn);
-        textSoundDistance.mouseClicked(x, y, btn);
+        textSoundRadius.mouseClicked(x, y, btn);
+        textSoundOffset.mouseClicked(x, y, btn);
 
         if (x > (width - GUI_SIZE_X) / 2 + 69 &&
                 x < (width - GUI_SIZE_X) / 2 + 82 &&
@@ -163,41 +163,41 @@ public class GuiSoundProjector extends GuiContainer implements IContainerListene
             updateSoundProjector();
         }
 
-        if (!textSoundRange.isFocused())
-            processTextSoundRange();
-        if (!textSoundRange.isFocused())
-            processTextSoundDistance();
+        if (!textSoundRadius.isFocused())
+            processTextSoundRadius();
+        if (!textSoundRadius.isFocused())
+            processTextSoundOffset();
     }
 
-    private void processTextSoundRange() {
-        int soundRange = 0;
+    private void processTextSoundRadius() {
+        int soundRadius = 0;
 
-        if (!textSoundRange.getText().equals(""))
-            soundRange = Integer.parseInt(textSoundRange.getText());
+        if (!textSoundRadius.getText().equals(""))
+            soundRadius = Integer.parseInt(textSoundRadius.getText());
 
-        if (soundRange > SOUND_RANGE_MAX)
-            soundRange = SOUND_RANGE_MAX;
-        else if (soundRange < SOUND_RANGE_MIN)
-            soundRange = SOUND_RANGE_MIN;
+        if (soundRadius > SOUND_RADIUS_MAX)
+            soundRadius = SOUND_RADIUS_MAX;
+        else if (soundRadius < SOUND_RADIUS_MIN)
+            soundRadius = SOUND_RADIUS_MIN;
 
-        textSoundRange.setText(Integer.toString(soundRange));
-        tileSoundProjector.setSoundRange(soundRange);
+        textSoundRadius.setText(Integer.toString(soundRadius));
+        tileSoundProjector.setSoundRadius(soundRadius);
         updateSoundProjector();
     }
 
-    private void processTextSoundDistance() {
-        int soundDistance = 0;
+    private void processTextSoundOffset() {
+        int soundOffset = 0;
 
-        if (!textSoundDistance.getText().equals(""))
-            soundDistance = Integer.parseInt(textSoundDistance.getText());
+        if (!textSoundOffset.getText().equals(""))
+            soundOffset = Integer.parseInt(textSoundOffset.getText());
 
-        if (soundDistance > SOUND_DISTANCE_MAX)
-            soundDistance = SOUND_DISTANCE_MAX;
-        else if (soundDistance < SOUND_DISTANCE_MIN)
-            soundDistance = SOUND_DISTANCE_MIN;
+        if (soundOffset > SOUND_OFFSET_MAX)
+            soundOffset = SOUND_OFFSET_MAX;
+        else if (soundOffset < SOUND_OFFSET_MIN)
+            soundOffset = SOUND_OFFSET_MIN;
 
-        textSoundDistance.setText(Integer.toString(soundDistance));
-        tileSoundProjector.setSoundDistance(soundDistance);
+        textSoundOffset.setText(Integer.toString(soundOffset));
+        tileSoundProjector.setSoundOffset(soundOffset);
         updateSoundProjector();
     }
 
@@ -206,7 +206,7 @@ public class GuiSoundProjector extends GuiContainer implements IContainerListene
         BlockPos pos = tileSoundProjector.getPos();
         SpNetworkHelper.updateSoundProjector(
                 pos.getX(), pos.getY(), pos.getZ(),
-                tileSoundProjector.getSoundName(), tileSoundProjector.getSoundRange(), tileSoundProjector.getSoundDistance(), tileSoundProjector.getSoundLoop()
+                tileSoundProjector.getSoundName(), tileSoundProjector.getSoundRadius(), tileSoundProjector.getSoundOffset(), tileSoundProjector.getSoundLoop()
         );
     }
 

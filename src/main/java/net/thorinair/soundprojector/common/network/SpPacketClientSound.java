@@ -1,7 +1,6 @@
 package net.thorinair.soundprojector.common.network;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -16,21 +15,21 @@ public class SpPacketClientSound implements IMessage, IMessageHandler<SpPacketCl
     private int z;
 
     private String soundName;
-    private int soundRange;
-    private int soundDistance;
+    private int soundRadius;
+    private int soundOffset;
     private boolean soundLoop;
 
     public SpPacketClientSound() {
     }
 
-    public SpPacketClientSound(int x, int y, int z, String soundName, int soundRange, int soundDistance, boolean soundLoop) {
+    public SpPacketClientSound(int x, int y, int z, String soundName, int soundRadius, int soundOffset, boolean soundLoop) {
         this.x = x;
         this.y = y;
         this.z = z;
 
         this.soundName = soundName;
-        this.soundRange = soundRange;
-        this.soundDistance = soundDistance;
+        this.soundRadius = soundRadius;
+        this.soundOffset = soundOffset;
         this.soundLoop = soundLoop;
     }
 
@@ -41,8 +40,8 @@ public class SpPacketClientSound implements IMessage, IMessageHandler<SpPacketCl
         z = buf.readInt();
 
         soundName = ByteBufUtils.readUTF8String(buf);
-        soundRange = buf.readInt();
-        soundDistance = buf.readInt();
+        soundRadius = buf.readInt();
+        soundOffset = buf.readInt();
         soundLoop = buf.readBoolean();
     }
 
@@ -53,8 +52,8 @@ public class SpPacketClientSound implements IMessage, IMessageHandler<SpPacketCl
         buf.writeInt(z);
 
         ByteBufUtils.writeUTF8String(buf, soundName);
-        buf.writeInt(soundRange);
-        buf.writeInt(soundDistance);
+        buf.writeInt(soundRadius);
+        buf.writeInt(soundOffset);
         buf.writeBoolean(soundLoop);
     }
 
@@ -65,8 +64,8 @@ public class SpPacketClientSound implements IMessage, IMessageHandler<SpPacketCl
         if (tileEntity instanceof TileEntitySoundProjector) {
             TileEntitySoundProjector tileSoundProjector = (TileEntitySoundProjector) tileEntity;
             tileSoundProjector.setSoundName(message.soundName);
-            tileSoundProjector.setSoundRange(message.soundRange);
-            tileSoundProjector.setSoundDistance(message.soundDistance);
+            tileSoundProjector.setSoundRadius(message.soundRadius);
+            tileSoundProjector.setSoundOffset(message.soundOffset);
             tileSoundProjector.setSoundLoop(message.soundLoop);
             tileSoundProjector.sendUpdates();
             //IBlockState state = tileSoundProjector.getWorld().getBlockState(pos);

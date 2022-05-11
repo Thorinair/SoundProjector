@@ -6,6 +6,6 @@ item.soundprojector.directional_loudspeaker.name=Directional Loudspeaker
 
 soundprojector.container.sound_projector=Sound Projector
 soundprojector.container.sound_projector.label_sound_name=Sound Name
-soundprojector.container.sound_projector.label_sound_range=Range
-soundprojector.container.sound_projector.label_sound_distance=Distance
+soundprojector.container.sound_projector.label_sound_radius=Radius
+soundprojector.container.sound_projector.label_sound_offset=Offset
 soundprojector.container.sound_projector.label_sound_loop=Loop

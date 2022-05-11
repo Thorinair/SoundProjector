@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "LHL",
+        "LNL",
+        "IRI"
+    ],
+    "key":
+    {
+        "H":
+        {
+            "item": "minecraft:hopper"
+        },
+        "N":
+        {
+            "item": "minecraft:noteblock"
+        },
+        "R":
+        {
+            "type": "forge:ore_dict",
+            "ore": "dustRedstone"
+        },
+        "I":
+        {
+            "type": "forge:ore_dict",
+            "ore": "ingotIron"
+        },
+        "L":
+        {
+            "type": "forge:ore_dict",
+            "ore": "leather"
+        }
+    },
+    "result": { "item": "soundprojector:directional_loudspeaker" }
+}

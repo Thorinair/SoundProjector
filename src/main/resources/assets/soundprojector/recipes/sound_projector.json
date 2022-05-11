@@ -1,0 +1,31 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern":
+    [
+        "IDI",
+        "RJR",
+        "IRI"
+    ],
+    "key":
+    {
+        "D":
+        {
+            "item": "soundprojector:directional_loudspeaker"
+        },
+        "J":
+        {
+            "item": "minecraft:jukebox"
+        },
+        "R":
+        {
+            "type": "forge:ore_dict",
+            "ore": "dustRedstone"
+        },
+        "I":
+        {
+            "type": "forge:ore_dict",
+            "ore": "ingotIron"
+        }
+    },
+    "result": { "item": "soundprojector:sound_projector" }
+}

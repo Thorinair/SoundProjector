@@ -155,9 +155,9 @@ public class GuiSoundProjector extends GuiContainer implements IContainerListene
     protected void mouseClicked(int x, int y, int btn) throws IOException {
         super.mouseClicked(x, y, btn);
 
-        textSoundName.mouseClicked(x, y, btn);
-        textSoundRadius.mouseClicked(x, y, btn);
-        textSoundOffset.mouseClicked(x, y, btn);
+        textSoundName.mouseClicked(x - (width - GUI_SIZE_X) / 2 + 3, y - (height - GUI_SIZE_Y) / 2 + 38, btn);
+        textSoundRadius.mouseClicked(x - (width - GUI_SIZE_X) / 2 + 3, y - (height - GUI_SIZE_Y) / 2 + 38, btn);
+        textSoundOffset.mouseClicked(x - (width - GUI_SIZE_X) / 2 + 3, y - (height - GUI_SIZE_Y) / 2 + 38, btn);
 
         if (x > (width - GUI_SIZE_X) / 2 + 69 &&
                 x < (width - GUI_SIZE_X) / 2 + 82 &&

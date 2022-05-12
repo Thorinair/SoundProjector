@@ -49,19 +49,22 @@ public class GuiSoundProjector extends GuiContainer implements IContainerListene
     public void initGui() {
         super.initGui();
 
-        textSoundName = new GuiTextField(0, this.fontRenderer, width / 2 - GUI_SIZE_X / 2 + 70, height / 2 - GUI_SIZE_Y / 2 + 22, 98, 12);
+        textSoundName = new GuiTextField(0, this.fontRenderer, GUI_SIZE_X / 2 - 18, 60, 98, 12);
         textSoundName.setMaxStringLength(24);
         textSoundName.setTextColor(0xFFFFFF);
+        textSoundName.setVisible(true);
         textSoundName.setText(tileSoundProjector.getSoundName());
 
-        textSoundRadius = new GuiTextField(1, this.fontRenderer, width / 2 - GUI_SIZE_X / 2 + 70, height / 2 - GUI_SIZE_Y / 2 + 38, 27, 12);
+        textSoundRadius = new GuiTextField(1, this.fontRenderer, GUI_SIZE_X / 2 - 18, 76, 27, 12);
         textSoundRadius.setMaxStringLength(3);
         textSoundRadius.setTextColor(0xFFFFFF);
+        textSoundRadius.setVisible(true);
         textSoundRadius.setText(Integer.toString(tileSoundProjector.getSoundRadius()));
 
-        textSoundOffset = new GuiTextField(2, this.fontRenderer, width / 2 - GUI_SIZE_X / 2 + 70, height / 2 - GUI_SIZE_Y / 2 + 54, 27, 12);
+        textSoundOffset = new GuiTextField(2, this.fontRenderer, GUI_SIZE_X / 2 - 18, 92, 27, 12);
         textSoundOffset.setMaxStringLength(3);
         textSoundOffset.setTextColor(0xFFFFFF);
+        textSoundOffset.setVisible(true);
         textSoundOffset.setText(Integer.toString(tileSoundProjector.getSoundOffset()));
 
         textSoundName.setFocused(true);
@@ -85,6 +88,10 @@ public class GuiSoundProjector extends GuiContainer implements IContainerListene
 
         String labelSoundLoop = I18n.format(GUI_STRING_SOUND_LOOP);
         fontRenderer.drawString(labelSoundLoop, GUI_SIZE_X / 2 - 80, 110, 0x404040);
+
+        textSoundName.drawTextBox();
+        textSoundRadius.drawTextBox();
+        textSoundOffset.drawTextBox();
 
         //super.drawGuiContainerForegroundLayer(mouseX, mouseY);
     }
@@ -142,9 +149,6 @@ public class GuiSoundProjector extends GuiContainer implements IContainerListene
     public void drawScreen(int par1, int par2, float par3) {
         this.drawDefaultBackground();
         super.drawScreen(par1, par2, par3);
-        textSoundName.drawTextBox();
-        textSoundRadius.drawTextBox();
-        textSoundOffset.drawTextBox();
     }
 
     @Override
